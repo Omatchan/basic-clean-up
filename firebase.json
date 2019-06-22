@@ -9,13 +9,32 @@
     ]
   },
   "hosting": {
-    "public": "dist",
+    "public": [
+      "dist",
+      "secrets"
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
+      {
+        "source": "/helloWorld",
+        "function": "helloWorld"
+      },
+      {
+        "source": "/getUsers",
+        "function": "getUsers"
+      }, 
+      {
+        "source": "/getPlaces",
+        "function": "getPlaces"
+      }, 
+      {
+        "source": "/getTeams",
+        "function": "getTeams"
+      }, 
       {
         "source": "**",
         "destination": "/index.html"

@@ -2,37 +2,39 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span class="mgr-10">ベーシック 関西事業所</span>
+        <span class="font-weight-light">掃除当番表</span>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <v-spacer />
+      <v-toolbar-title class="headline">
+        <router-link to="/">Home</router-link>|
+        <router-link to="/list">List</router-link>|
+        <router-link to="/about">About</router-link>
+      </v-toolbar-title>
+      <v-spacer />
+      <router-link to="/about">About</router-link>
     </v-toolbar>
 
     <v-content>
-      <HelloWorld />
+      <router-view />
     </v-content>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-  name: 'App',
+@Component({
   components: {
     HelloWorld,
   },
-  data() {
-    return {
-      //
-    };
-  },
-};
+})
+export default class App extends Vue {}
 </script>
+
+<style>
+.mgr-10 {
+  margin-right: 10px;
+}
+</style>
