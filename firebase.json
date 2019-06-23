@@ -9,15 +9,8 @@
     ]
   },
   "hosting": {
-    "public": [
-      "dist",
-      "secrets"
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "public": ["dist", "secrets"],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "/helloWorld",
@@ -26,15 +19,27 @@
       {
         "source": "/getUsers",
         "function": "getUsers"
-      }, 
+      },
+      {
+        "source": "/getUser",
+        "function": "getUser"
+      },
+      {
+        "source": "/setUser",
+        "function": "setUser"
+      },
+      {
+        "source": "/removeUser",
+        "function": "removeUser"
+      },
       {
         "source": "/getPlaces",
         "function": "getPlaces"
-      }, 
+      },
       {
         "source": "/getTeams",
         "function": "getTeams"
-      }, 
+      },
       {
         "source": "**",
         "destination": "/index.html"

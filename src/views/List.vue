@@ -32,7 +32,7 @@
         :items="userList"
         :search="search"
         rows-per-page-text=""
-        :rows-per-page-items="[]"
+        :rows-per-page-items="[10]"
         class="elevation-1"
         v-show="!deleteDialog"
       >
@@ -201,7 +201,7 @@ export default class List extends Vue {
   public indexUsers() {
     console.log('ユーザ一覧');
     this.userList = [];
-    const url = 'http://localhost:5000/basiccleanup/us-central1/getUsers';
+    const url = 'http://localhost:5001/basiccleanup/us-central1/getUsers';
     axios(url)
       .then((response) => {
         console.log(
@@ -219,7 +219,7 @@ export default class List extends Vue {
   public createUser(userInfo: any) {
     console.log('ユーザ作成');
     console.log('ユーザ作成 userInfo: ' + JSON.stringify(userInfo));
-    const url = 'http://localhost:5000/basiccleanup/us-central1/setUser';
+    const url = 'http://localhost:5001/basiccleanup/us-central1/setUser';
     const params = new URLSearchParams();
     params.append('userInfo', JSON.stringify(userInfo));
     console.log('ユーザ作成 params: ' + JSON.stringify(params));
@@ -241,9 +241,10 @@ export default class List extends Vue {
     console.log('ユーザ編集(読み出し)');
     console.log('ユーザ編集(読み出し) Id: ' + Id);
     this.selectedUser.Id = Id;
-    const url = 'http://localhost:5000/basiccleanup/us-central1/getUser/';
+    const url = 'http://localhost:5001/basiccleanup/us-central1/getUser/';
     const params = new URLSearchParams();
-    params.append('Id', String(Id));
+    params.append('Child', 'Id');
+    params.append('Val', String(Id));
     console.log('ユーザ編集(読み出し) params: ' + params);
     axios
       .post(url, params)
@@ -265,14 +266,12 @@ export default class List extends Vue {
   public updateUser(userInfo: any) {
     console.log('ユーザ編集(書き込み)');
     console.log('ユーザ編集(書き込み) userInfo: ' + JSON.stringify(userInfo));
-    const url = 'http://localhost:5000/basiccleanup/us-central1/setUser/';
+    const url = 'http://localhost:5001/basiccleanup/us-central1/setUser/';
     const params = new URLSearchParams();
     params.append('userInfo', JSON.stringify(userInfo));
     console.log('ユーザ編集(書き込み) params: ' + JSON.stringify(params));
     axios
       .post(url, params)
-      // axios.patch(url, userInfo)
-      // axios.patch('http://localhost:3000/users/' + userInfo.Id, userInfo)
       .then((response) => {
         console.log('Updated : Id=' + response.data.Id);
       })
@@ -295,10 +294,16 @@ export default class List extends Vue {
   // ユーザ削除
   public deleteUser() {
     console.log('ユーザ削除');
+    console.log('ユーザ削除 Id: ' + this.selectedUser.Id);
+    const url = 'http://localhost:5001/basiccleanup/us-central1/removeUser/';
+    const params = new URLSearchParams();
+    params.append('Child', 'Id');
+    params.append('Val', String(this.selectedUser.Id));
+    console.log('ユーザ削除 params: ' + params);
     axios
-      .delete('http://localhost:3000/users/' + this.selectedUser.Id)
+      .post(url, params)
       .then((response) => {
-        console.log('Deleted : Id=' + this.selectedUser.Id);
+        console.log('ユーザ削除 response: ' + JSON.stringify(response));
       })
       .catch((error) => {
         console.log('Error : ' + error);
@@ -350,10 +355,6 @@ export default class List extends Vue {
     console.log(
       'ダイアログのタイトルを作成 this.selectedUser.Id: ' +
         this.selectedUser.Id,
-    );
-    console.log(
-      'ダイアログのタイトルを作成 this.selectedUser.Id === -1: ' +
-        (this.selectedUser.Id === -1),
     );
     return this.selectedUser.Id === -1 ? '新規ユーザ情報' : 'ユーザ情報の編集';
   }

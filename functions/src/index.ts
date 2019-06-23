@@ -26,15 +26,17 @@ import * as db_place from './database/place';
 import * as db_team from './database/team';
 import * as db_user from './database/user';
 
-export const helloWorld = functions
-    .https.onRequest((_request: functions.Request, response: functions.Response) => {
-        response.send('Hello from Firebase!');
-    });
+export const helloWorld = functions.https.onRequest(
+  (_request: functions.Request, response: functions.Response) => {
+    response.send('Hello from Firebase!');
+  },
+);
 
 export const getPlaces = db_place.getPlaces;
 export const getTeams = db_team.getTeams;
 export const getUsers = db_user.getUsers;
 export const getUser = db_user.getUser;
 export const setUser = db_user.setUser;
+export const removeUser = db_user.removeUser;
 
 console.log('index loaded');
