@@ -7,10 +7,7 @@ module.exports = {
   parserOptions: {
     parser: '@typescript-eslint/parser',
   },
-  plugins: [
-    'prettier',
-    'vue',
-  ],
+  plugins: ['prettier', 'vue'],
   extends: [
     'prettier',
     'plugin:prettier/recommended',
@@ -19,7 +16,6 @@ module.exports = {
     '@vue/typescript',
   ],
   rules: {
-    'key-spacing': ['error', { align: 'colon' }],
     'no-console': 'off',
     'prettier/prettier': [
       'error',
@@ -31,7 +27,7 @@ module.exports = {
         // insertPragma: true,
       },
     ],
-    'space-before-function-paren': 0,
+    // 'space-before-function-paren': 0,
     'vue/max-attributes-per-line': 'off',
     // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
