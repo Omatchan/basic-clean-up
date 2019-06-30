@@ -9,7 +9,7 @@
     ]
   },
   "hosting": {
-    "public": ["dist", "secrets"],
+    "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
@@ -35,6 +35,18 @@
       {
         "source": "/getPlaces",
         "function": "getPlaces"
+      },
+      {
+        "source": "/getPlace",
+        "function": "getPlace"
+      },
+      {
+        "source": "/setPlace",
+        "function": "setPlace"
+      },
+      {
+        "source": "/removePlace",
+        "function": "removePlace"
       },
       {
         "source": "/getTeams",

@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import List from './views/List.vue';
+import CleanUpList from './views/CleanUpList.vue';
+import UsersList from './views/UsersList.vue';
+import PlacesList from './views/PlacesList.vue';
 
 Vue.use(Router);
 
@@ -11,13 +12,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'cleanuplist',
+      component: CleanUpList,
     },
     {
-      path: '/list',
-      name: 'list',
-      component: List,
+      path: '/userslist',
+      name: 'userslist',
+      component: UsersList,
+    },
+    {
+      path: '/placeslist',
+      name: 'placeslist',
+      component: PlacesList,
     },
     {
       path: '/about',

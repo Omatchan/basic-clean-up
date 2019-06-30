@@ -32,11 +32,14 @@ export const helloWorld = functions.https.onRequest(
   },
 );
 
-export const getPlaces = db_place.getPlaces;
-export const getTeams = db_team.getTeams;
 export const getUsers = db_user.getUsers;
 export const getUser = db_user.getUser;
 export const setUser = db_user.setUser;
 export const removeUser = db_user.removeUser;
+export const getPlaces = db_place.getPlaces;
+export const getPlace = db_place.getPlace;
+export const setPlace = db_place.setPlace;
+export const removePlace = db_place.removePlace;
+export const getTeams = db_team.getTeams;
 
 console.log('index loaded');

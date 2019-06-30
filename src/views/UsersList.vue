@@ -2,20 +2,14 @@
   <div class="list">
     <div>
       <v-toolbar flat color="gray">
-        <v-toolbar-title>ユーザー管理</v-toolbar-title>
+        <v-toolbar-title>ユーザ管理</v-toolbar-title>
         <v-divider class="mx-3" inset vertical></v-divider>
 
         <!-- リスト更新ボタン -->
         <v-icon @click="refresh()">refresh</v-icon>
 
         <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
 
         <!-- ユーザ追加ボタン フォームは下部 -->
         <v-btn fab dark small color="dark" class="mb-2" @click="dialog = true">
@@ -54,9 +48,7 @@
         </template>
 
         <!-- 検索結果なし -->
-        <v-alert slot="no-results" :value="true" color="error" icon="warning">
-          '{{ search }}' の検索結果なし
-        </v-alert>
+        <v-alert slot="no-results" :value="true" color="error" icon="warning"> '{{ search }}' の検索結果なし </v-alert>
         <!-- データなしの時の表示 -->
         <template slot="no-data">
           No Data
@@ -64,8 +56,7 @@
 
         <!-- フッターの件数表示 -->
         <template slot="pageText" slot-scope="props">
-          {{ props.itemsLength }} 件中 {{ props.pageStart }} 件目 〜
-          {{ props.pageStop }} 件目
+          {{ props.itemsLength }} 件中 {{ props.pageStart }} 件目 〜 {{ props.pageStop }} 件目
         </template>
       </v-data-table>
 
@@ -81,12 +72,7 @@
                 <v-container grid-list-md>
                   <v-layout wrap>
                     <v-flex xs12 sm6 md4>
-                      <v-text-field
-                        v-model="selectedUser.Id"
-                        label="Id"
-                        :rules="idRules"
-                        :counter="6"
-                      ></v-text-field>
+                      <v-text-field v-model="selectedUser.Id" label="Id" :rules="idRules" :counter="6"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm6 md4>
                       <v-text-field
@@ -111,16 +97,8 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn
-                  color="blue darken-1"
-                  flat
-                  @click="save"
-                  :disabled="!valid"
-                  >保存</v-btn
-                >
-                <v-btn color="blue darken-1" flat @click="close"
-                  >キャンセル</v-btn
-                >
+                <v-btn color="blue darken-1" flat @click="save" :disabled="!valid">保存</v-btn>
+                <v-btn color="blue darken-1" flat @click="close">キャンセル</v-btn>
               </v-card-actions>
             </v-card>
           </v-form>
@@ -145,13 +123,11 @@
 </template>
 
 <script lang="ts">
-// import 'functions';
-// import 'firebase/functions/';
 import { Vue, Component } from 'vue-property-decorator';
 import axios from 'axios';
 
 @Component({})
-export default class List extends Vue {
+export default class UsersList extends Vue {
   // ユーザ一覧が入る配列
   private userList = [];
 
@@ -187,10 +163,7 @@ export default class List extends Vue {
     (v: string) => !!isFinite(Number(v)) || 'Idは数値です',
   ];
 
-  private nameRules = [
-    (v: string) => !!v || '名前は必須です',
-    (v: string) => v.length <= 16 || '名前は16文字までです',
-  ];
+  private nameRules = [(v: string) => !!v || '名前は必須です', (v: string) => v.length <= 16 || '名前は16文字までです'];
 
   private speakingNameRules = [
     (v: string) => !!v || '読みは必須です',
@@ -201,12 +174,10 @@ export default class List extends Vue {
   public indexUsers() {
     console.log('ユーザ一覧');
     this.userList = [];
-    const url = 'http://localhost:5001/basiccleanup/us-central1/getUsers';
+    const url = '/getUsers';
     axios(url)
       .then((response) => {
-        console.log(
-          'ユーザ一覧 response.data: ' + JSON.stringify(response.data),
-        );
+        console.log('ユーザ一覧 response.data: ' + JSON.stringify(response.data));
         this.userList = response.data;
         console.log('Index : record num=' + this.userList.length);
       })
@@ -219,7 +190,7 @@ export default class List extends Vue {
   public createUser(userInfo: any) {
     console.log('ユーザ作成');
     console.log('ユーザ作成 userInfo: ' + JSON.stringify(userInfo));
-    const url = 'http://localhost:5001/basiccleanup/us-central1/setUser';
+    const url = '/setUser';
     const params = new URLSearchParams();
     params.append('userInfo', JSON.stringify(userInfo));
     console.log('ユーザ作成 params: ' + JSON.stringify(params));
@@ -241,7 +212,7 @@ export default class List extends Vue {
     console.log('ユーザ編集(読み出し)');
     console.log('ユーザ編集(読み出し) Id: ' + Id);
     this.selectedUser.Id = Id;
-    const url = 'http://localhost:5001/basiccleanup/us-central1/getUser/';
+    const url = '/getUser';
     const params = new URLSearchParams();
     params.append('Child', 'Id');
     params.append('Val', String(Id));
@@ -249,10 +220,7 @@ export default class List extends Vue {
     axios
       .post(url, params)
       .then((response) => {
-        console.log(
-          'ユーザ編集(読み出し) response.data: ' +
-            JSON.stringify(response.data),
-        );
+        console.log('ユーザ編集(読み出し) response.data: ' + JSON.stringify(response.data));
         this.selectedUser = response.data;
         console.log('Edit : Id=' + this.selectedUser.Id);
         this.dialog = true;
@@ -266,7 +234,7 @@ export default class List extends Vue {
   public updateUser(userInfo: any) {
     console.log('ユーザ編集(書き込み)');
     console.log('ユーザ編集(書き込み) userInfo: ' + JSON.stringify(userInfo));
-    const url = 'http://localhost:5001/basiccleanup/us-central1/setUser/';
+    const url = '/setUser';
     const params = new URLSearchParams();
     params.append('userInfo', JSON.stringify(userInfo));
     console.log('ユーザ編集(書き込み) params: ' + JSON.stringify(params));
@@ -295,7 +263,7 @@ export default class List extends Vue {
   public deleteUser() {
     console.log('ユーザ削除');
     console.log('ユーザ削除 Id: ' + this.selectedUser.Id);
-    const url = 'http://localhost:5001/basiccleanup/us-central1/removeUser/';
+    const url = '/removeUser';
     const params = new URLSearchParams();
     params.append('Child', 'Id');
     params.append('Val', String(this.selectedUser.Id));
@@ -324,9 +292,7 @@ export default class List extends Vue {
   // ダイアログの保存ボタン
   public save() {
     console.log('ダイアログの保存ボタン');
-    console.log(
-      'ダイアログの保存ボタン this.selectedUser.Id: ' + this.selectedUser.Id,
-    );
+    console.log('ダイアログの保存ボタン this.selectedUser.Id: ' + this.selectedUser.Id);
     if (this.selectedUser.Id === -1) {
       // 作成
       console.log('ダイアログの保存ボタン: 作成');
@@ -352,10 +318,7 @@ export default class List extends Vue {
   // ダイアログのタイトルを作成と更新で使い分ける
   get formTitle(): string {
     console.log('ダイアログのタイトルを作成');
-    console.log(
-      'ダイアログのタイトルを作成 this.selectedUser.Id: ' +
-        this.selectedUser.Id,
-    );
+    console.log('ダイアログのタイトルを作成 this.selectedUser.Id: ' + this.selectedUser.Id);
     return this.selectedUser.Id === -1 ? '新規ユーザ情報' : 'ユーザ情報の編集';
   }
 

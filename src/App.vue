@@ -6,13 +6,11 @@
         <span class="font-weight-light">掃除当番表</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-toolbar-title class="headline">
-        <router-link to="/">Home</router-link>|
-        <router-link to="/list">List</router-link>|
+      <v-toolbar-items class="hidden-sm-and-down">
+        <router-link to="/">メイン</router-link>| <router-link to="/userslist">ユーザ リスト</router-link>|
+        <router-link to="/placeslist">場所 リスト</router-link>|
         <router-link to="/about">About</router-link>
-      </v-toolbar-title>
-      <v-spacer />
-      <router-link to="/about">About</router-link>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content>
