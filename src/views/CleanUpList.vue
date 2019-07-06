@@ -8,18 +8,21 @@
       <v-container grid-list-md text-xs-center>
         <v-layout align-space-around justify-space-around row fill-height>
           <v-flex v-for="cleanUp in cleanUpList" :key="cleanUp.place.Id">
-            <v-card color="#483d8b">
+            <!-- 青：#2B8DF2  緑：#65D573  黄：#FFD573  赤：#F35D44 -->
+            <!-- 青：#61A9F5  緑：#8CE096  黄：#FFDF96  赤：#F58673 -->
+            <!-- 青：#95C6F9  緑：#B2EAB9  黄：#FFEAB9  赤：#F9AFA2 -->
+            <v-card color="#2B8DF2">
               <v-card-text class="px-0">{{ cleanUp.place.Name }}</v-card-text>
-              <v-layout column wrap>
-                <v-flex v-for="user in cleanUp.users" :key="user.Id">
-                  <div padding="12px">
-                    <v-card dark color="slateblue">
-                      <v-card-text class="px-0">{{ user.Id }}:{{ user.Name }}</v-card-text>
-                    </v-card>
-                  </div>
-                </v-flex>
-              </v-layout>
             </v-card>
+            <v-layout column wrap>
+              <v-flex v-for="user in cleanUp.users" :key="user.Id">
+                <div padding="12px">
+                  <v-card color="#95C6F9" padding="12px">
+                    <v-card-text class="px-0">{{ user.Id }}:{{ user.Name }}</v-card-text>
+                  </v-card>
+                </div>
+              </v-flex>
+            </v-layout>
           </v-flex>
         </v-layout>
       </v-container>

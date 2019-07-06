@@ -24,6 +24,7 @@ module.exports = {
         semi: true,
         trailingComma: 'all',
         arrowParens: 'always',
+        printWidth: 120, // 1行の文字数制限
         // insertPragma: true,
       },
     ],

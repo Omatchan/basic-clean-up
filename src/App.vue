@@ -7,9 +7,10 @@
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items class="hidden-sm-and-down">
-        <router-link to="/">メイン</router-link>| <router-link to="/userslist">ユーザ リスト</router-link>|
-        <router-link to="/placeslist">場所 リスト</router-link>|
-        <router-link to="/about">About</router-link>
+        <router-link to="/" style="margin:10px;">メイン</router-link>
+        <router-link to="/userslist" style="margin:10px;">ユーザ リスト</router-link>
+        <router-link to="/placeslist" style="margin:10px;">場所 リスト</router-link>
+        <router-link to="/about" style="margin:10px;">About</router-link>
       </v-toolbar-items>
     </v-toolbar>
 
